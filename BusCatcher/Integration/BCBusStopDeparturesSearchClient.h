@@ -17,6 +17,6 @@
 
 @property (strong,nonatomic) id delegate;
 
-- (void)searchForDeparturesBySLSiteId:(NSString *)siteId andWithTimeWindow:(NSString *)timeWindow;
+- (void)searchForDeparturesBySLSiteId:(NSNumber *)siteId andWithTimeWindow:(NSString *)timeWindow;
 
 @end

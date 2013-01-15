@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BCAppLocationManager.h"
 #import "BCBusStopSearchClient.h"
+#import "BCBusStopDeparturesSearchClient.h"
 
 @interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCBusStopSearchDelegate>
 

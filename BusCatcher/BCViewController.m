@@ -18,6 +18,7 @@
 
 BCAppLocationManager *appLocationManager;
 BCBusStopSearchClient *busStopSearchClient;
+BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
 
 - (void)viewDidLoad
 {
@@ -26,6 +27,9 @@ BCBusStopSearchClient *busStopSearchClient;
         
     busStopSearchClient = [[BCBusStopSearchClient alloc] init];
     [busStopSearchClient setDelegate:self];
+
+    busStopDeparturesSearchClient = [[BCBusStopDeparturesSearchClient alloc] init];
+    [busStopDeparturesSearchClient setDelegate:self];
     
     appLocationManager = [[BCAppLocationManager alloc] init];
     [appLocationManager setDelegate:self];
@@ -57,7 +61,10 @@ BCBusStopSearchClient *busStopSearchClient;
 
 - (void)searchSLBusStopByNameResult:(NSArray *)busStops
 {
-    NSLog(@"%@",busStops);    
+    NSLog(@"%@",busStops);
+    for (BCBusStop *busStop in busStops) {
+        [busStopDeparturesSearchClient searchForDeparturesBySLSiteId:(NSNumber *)[busStop busStopId] andWithTimeWindow:@"30"];
+    }
 }
 
 @end
