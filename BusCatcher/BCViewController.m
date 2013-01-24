@@ -22,6 +22,9 @@ BCAppLocationManager *appLocationManager;
 BCBusStopSearchClient *busStopSearchClient;
 BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
 
+UIActivityIndicatorView *indicator;
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,6 +39,12 @@ BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
     appLocationManager = [[BCAppLocationManager alloc] init];
     [appLocationManager setDelegate:self];
     
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = _getDeparturesButton.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,9 +54,13 @@ BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
 }
 
 - (IBAction)getNearByDepartures:(id)sender {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [indicator startAnimating];
+    
     // Query Location and Initiate Bus Stop lookup
-    [appLocationManager queryLocation];
     [_getDeparturesButton setEnabled:NO];
+    [_resultTextView setText:@""];
+    [appLocationManager queryLocation];
 }
 
 #pragma mark BCAppLocationManagerDelegate
@@ -80,6 +93,9 @@ BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
     [_getDeparturesButton setEnabled:YES];
     NSString *sumOfBusStopsDescriptions = [[_resultTextView text] stringByAppendingString:[busStop description]];
     [_resultTextView setText:sumOfBusStopsDescriptions];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+    [indicator stopAnimating];
 }
 
 @end

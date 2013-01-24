@@ -54,7 +54,18 @@
             [_delegate searchByCoordinateResult:busStops];
         }
         
-    } failure:nil];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ett fel inträffade"
+                                                        message:[JSON description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+                                         
+    }
+    ];
     
     [operation start];
 }
@@ -67,7 +78,7 @@
     NSString *nameEncoded = [[busStop busStopName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     urlString = [urlString stringByAppendingString:nameEncoded];
     urlString = [urlString stringByAppendingString:key];
-    NSLog(@"%@",urlString);
+    //NSLog(@"%@",urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -90,7 +101,17 @@
             [_delegate searchSLBusStopByNameResult:busStops];
         }   
         
-    } failure:nil];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ett fel inträffade"
+                                                        message:[JSON description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    ];
     
     [operation start];
 }

@@ -48,7 +48,18 @@
             [_delegate searchForDeparturesBySLSiteIdResult:busStop];
         }
         
-    } failure:nil];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ett fel inträffade"
+                                                        message:[JSON description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+                                         
+    }
+    ];
     
     [operation start];
 }
