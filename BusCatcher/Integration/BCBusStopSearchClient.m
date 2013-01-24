@@ -67,6 +67,7 @@
     NSString *nameEncoded = [[busStop busStopName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     urlString = [urlString stringByAppendingString:nameEncoded];
     urlString = [urlString stringByAppendingString:key];
+    NSLog(@"%@",urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

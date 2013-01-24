@@ -16,6 +16,8 @@
 
 @implementation BCViewController
 
+@synthesize resultTextView=_resultTextView, getDeparturesButton=_getDeparturesButton;
+
 BCAppLocationManager *appLocationManager;
 BCBusStopSearchClient *busStopSearchClient;
 BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
@@ -34,14 +36,18 @@ BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
     appLocationManager = [[BCAppLocationManager alloc] init];
     [appLocationManager setDelegate:self];
     
-    // Query Location and Initiate Bus Stop lookup
-    [appLocationManager queryLocation];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)getNearByDepartures:(id)sender {
+    // Query Location and Initiate Bus Stop lookup
+    [appLocationManager queryLocation];
+    [_getDeparturesButton setEnabled:NO];
 }
 
 #pragma mark BCAppLocationManagerDelegate
@@ -63,8 +69,17 @@ BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
 {
     NSLog(@"%@",busStops);
     for (BCBusStop *busStop in busStops) {
-        [busStopDeparturesSearchClient searchForDeparturesBySLSiteId:(NSNumber *)[busStop busStopId] andWithTimeWindow:@"30"];
+        [busStopDeparturesSearchClient searchForDeparturesBySLSiteId:busStop andWithTimeWindow:@"30"];
     }
+}
+
+#pragma mark BCBusStopDeparturesSearchDelegate
+- (void)searchForDeparturesBySLSiteIdResult:(BCBusStop *)busStop
+{
+    NSLog(@"%@",busStop);
+    [_getDeparturesButton setEnabled:YES];
+    NSString *sumOfBusStopsDescriptions = [[_resultTextView text] stringByAppendingString:[busStop description]];
+    [_resultTextView setText:sumOfBusStopsDescriptions];
 }
 
 @end

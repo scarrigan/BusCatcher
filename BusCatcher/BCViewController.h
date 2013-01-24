@@ -11,6 +11,13 @@
 #import "BCBusStopSearchClient.h"
 #import "BCBusStopDeparturesSearchClient.h"
 
-@interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCBusStopSearchDelegate>
+@interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCBusStopSearchDelegate,BCBusStopDeparturesSearchDelegate>
+
+
+@property (retain, nonatomic) IBOutlet UITextView *resultTextView;
+@property (retain, nonatomic) IBOutlet UIButton *getDeparturesButton;
+
+- (IBAction)getNearByDepartures:(id)sender;
+
 
 @end

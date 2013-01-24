@@ -10,13 +10,16 @@
 
 @interface BCBusStop : NSObject
 
-@property (nonatomic,retain) NSString *busStopId;
+@property (nonatomic,retain) NSNumber *busStopId;
 @property (nonatomic,retain) NSString *busStopName;
 @property (nonatomic,retain) NSString *xCoordinate;
 @property (nonatomic,retain) NSString *yCoordinate;
+@property (nonatomic,retain) NSMutableArray *departures;
 
 - (id)initWithResRobotDictionary:(NSDictionary *)busStop;
 - (id)initWithSLDictionary:(NSDictionary *)busStop;
 - (void)enrichWithSLDictionary:(NSDictionary *)busStop;
+- (void)addDepartureFromDictionary:(NSDictionary *)departure;
+
 
 @end

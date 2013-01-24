@@ -7,16 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BCBusStop.h"
 
 @protocol BCBusStopDeparturesSearchDelegate <NSObject>
 @required
-- (void)searchForDeparturesBySLSiteIdResult:(NSArray *)buses;
+- (void)searchForDeparturesBySLSiteIdResult:(BCBusStop *)busStop;
 @end
 
 @interface BCBusStopDeparturesSearchClient : NSObject
 
 @property (strong,nonatomic) id delegate;
 
-- (void)searchForDeparturesBySLSiteId:(NSNumber *)siteId andWithTimeWindow:(NSString *)timeWindow;
+- (void)searchForDeparturesBySLSiteId:(BCBusStop *)busStop andWithTimeWindow:(NSString *)timeWindow;
 
 @end

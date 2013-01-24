@@ -7,14 +7,16 @@
 //
 
 #import "BCBusStop.h"
+#import "BCDeparture.h"
 
 @implementation BCBusStop
 
-@synthesize busStopId,busStopName,xCoordinate,yCoordinate;
+@synthesize busStopId,busStopName,xCoordinate,yCoordinate,departures;
 
 - (id)initWithResRobotDictionary:(NSDictionary *)busStop
 {
     if (self = [super init]) {
+        departures = [[NSMutableArray alloc] init];
         [self setBusStopName:[busStop valueForKey:@"name"]];
         [self setBusStopId:[busStop valueForKey:@"id"]];
         [self setXCoordinate:[busStop valueForKey:@"x"]];
@@ -38,9 +40,20 @@
     [self setBusStopId:[busStop valueForKey:@"Number"]];
 }
 
+- (void)addDepartureFromDictionary:(NSDictionary *)departure {
+    [departures addObject:[[BCDeparture alloc] initWithDictionary:departure]];
+}
+
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ %@ x:%@ y:%@", busStopId, busStopName, xCoordinate, yCoordinate];
+    NSString *printDepartures = @"\n";
+    for (BCDeparture *dep in [self departures]) {
+        printDepartures = [printDepartures stringByAppendingString:[dep description]];
+        printDepartures = [printDepartures stringByAppendingString:@"\n"];
+    }
+    printDepartures = [printDepartures stringByAppendingString:@"\n"];
+
+    return [NSString stringWithFormat:@"%@ %@", busStopName , printDepartures];
 }
 
 @end
