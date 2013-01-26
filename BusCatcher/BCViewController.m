@@ -19,8 +19,7 @@
 @synthesize resultTextView=_resultTextView, getDeparturesButton=_getDeparturesButton;
 
 BCAppLocationManager *appLocationManager;
-BCBusStopSearchClient *busStopSearchClient;
-BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
+BCTrafikLabIntegrationManager *integrationManager;
 
 UIActivityIndicatorView *indicator;
 
@@ -29,13 +28,6 @@ UIActivityIndicatorView *indicator;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-        
-    busStopSearchClient = [[BCBusStopSearchClient alloc] init];
-    [busStopSearchClient setDelegate:self];
-
-    busStopDeparturesSearchClient = [[BCBusStopDeparturesSearchClient alloc] init];
-    [busStopDeparturesSearchClient setDelegate:self];
-    
     appLocationManager = [[BCAppLocationManager alloc] init];
     [appLocationManager setDelegate:self];
     
@@ -45,6 +37,8 @@ UIActivityIndicatorView *indicator;
     [self.view addSubview:indicator];
     [indicator bringSubviewToFront:self.view];
     
+    integrationManager = [[BCTrafikLabIntegrationManager alloc] init];
+    [integrationManager setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,36 +59,18 @@ UIActivityIndicatorView *indicator;
 #pragma mark BCAppLocationManagerDelegate
 - (void)queryLocationComplete:(CLLocationCoordinate2D)locationCoordinate2D
 {
-    [busStopSearchClient searchByCoordinate:locationCoordinate2D andWithinRange:@"500"];
+    [integrationManager getDeparturesFromLocation:locationCoordinate2D andWithinRadius:@"500"];
 }
 
-#pragma mark BCBusStopSearchDelegate
-- (void)searchByCoordinateResult:(NSArray *)busStops
-{
-    NSLog(@"%@",busStops);
-    for (BCBusStop *busStop in busStops){
-        [busStopSearchClient searchForSLBusStopByName:busStop];
-    }
-}
+#pragma mark BCTrafikLabIngegrationDelegate
+- (void)departuresFromLocation:(BCBusStop *)busStop {
+    NSLog(@"%@",[busStop description]);
 
-- (void)searchSLBusStopByNameResult:(NSArray *)busStops
-{
-    NSLog(@"%@",busStops);
-    for (BCBusStop *busStop in busStops) {
-        [busStopDeparturesSearchClient searchForDeparturesBySLSiteId:busStop andWithTimeWindow:@"30"];
-    }
-}
+    NSString *sumOfBusStopsDescriptions = [[_resultTextView text] stringByAppendingString:[busStop description]];
+    [_resultTextView setText:sumOfBusStopsDescriptions];
 
-#pragma mark BCBusStopDeparturesSearchDelegate
-- (void)searchForDeparturesBySLSiteIdResult:(BCBusStop *)busStop
-{
-    NSLog(@"%@",busStop);
-    if ([[busStop departures] count] > 0) {
-        NSString *sumOfBusStopsDescriptions = [[_resultTextView text] stringByAppendingString:[busStop description]];
-        [_resultTextView setText:sumOfBusStopsDescriptions];
-    }
-    
     [indicator stopAnimating];
+
 }
 
 @end

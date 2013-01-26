@@ -10,8 +10,9 @@
 #import "BCAppLocationManager.h"
 #import "BCBusStopSearchClient.h"
 #import "BCBusStopDeparturesSearchClient.h"
+#import "BCTrafikLabIntegrationManager.h"
 
-@interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCBusStopSearchDelegate,BCBusStopDeparturesSearchDelegate>
+@interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCTrafikLabIngegrationDelegate>
 
 
 @property (retain, nonatomic) IBOutlet UITextView *resultTextView;
