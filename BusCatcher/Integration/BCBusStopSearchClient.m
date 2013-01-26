@@ -33,8 +33,13 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-  
+
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+
         NSDictionary *stationsinzoneresult = [JSON valueForKeyPath:@"stationsinzoneresult"];
         id locations = [stationsinzoneresult valueForKeyPath:@"location"];
         NSMutableArray *busStops = [[NSMutableArray alloc] init];
@@ -58,7 +63,7 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ett fel inträffade"
-                                                        message:[JSON description]
+                                                        message:[error description]
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
@@ -82,8 +87,12 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
+       
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+
         NSMutableArray *busStops = [[NSMutableArray alloc] init];
         id sites = [[[JSON valueForKeyPath:@"Hafas"] valueForKeyPath:@"Sites"] valueForKeyPath:@"Site"];
         
@@ -105,7 +114,7 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ett fel inträffade"
-                                                        message:[JSON description]
+                                                        message:[error description]
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];

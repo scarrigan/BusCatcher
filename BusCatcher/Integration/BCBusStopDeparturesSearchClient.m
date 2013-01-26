@@ -28,8 +28,11 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+        
         id departures = [[[JSON valueForKeyPath:@"DPS"] valueForKeyPath:@"Buses"] valueForKey:@"DpsBus"];
         
         if ([departures isKindOfClass:[NSArray class]]) { // FOR MORE THAN ONE RESULT
@@ -52,7 +55,7 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ett fel inträffade"
-                                                        message:[JSON description]
+                                                        message:[error description]
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];

@@ -41,7 +41,7 @@ UIActivityIndicatorView *indicator;
     
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    indicator.center = _getDeparturesButton.center;
+    indicator.center = _resultTextView.center;
     [self.view addSubview:indicator];
     [indicator bringSubviewToFront:self.view];
     
@@ -54,11 +54,10 @@ UIActivityIndicatorView *indicator;
 }
 
 - (IBAction)getNearByDepartures:(id)sender {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+
     [indicator startAnimating];
     
     // Query Location and Initiate Bus Stop lookup
-    [_getDeparturesButton setEnabled:NO];
     [_resultTextView setText:@""];
     [appLocationManager queryLocation];
 }
@@ -90,11 +89,11 @@ UIActivityIndicatorView *indicator;
 - (void)searchForDeparturesBySLSiteIdResult:(BCBusStop *)busStop
 {
     NSLog(@"%@",busStop);
-    [_getDeparturesButton setEnabled:YES];
-    NSString *sumOfBusStopsDescriptions = [[_resultTextView text] stringByAppendingString:[busStop description]];
-    [_resultTextView setText:sumOfBusStopsDescriptions];
+    if ([[busStop departures] count] > 0) {
+        NSString *sumOfBusStopsDescriptions = [[_resultTextView text] stringByAppendingString:[busStop description]];
+        [_resultTextView setText:sumOfBusStopsDescriptions];
+    }
     
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     [indicator stopAnimating];
 }
 
