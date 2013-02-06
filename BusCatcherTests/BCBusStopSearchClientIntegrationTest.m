@@ -10,9 +10,6 @@
 
 @implementation BCBusStopSearchClientIntegrationTest
 
-BCBusStopSearchClient *client;
-BOOL callbackInvoked;
-
 - (void)setUp
 {
     [super setUp];

@@ -15,6 +15,12 @@
 #import "BCApiKeyManager.h"
 
 @interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCTrafikLabIntegrationDelegate>
+{
+    @private
+    BCAppLocationManager *appLocationManager;
+    BCTrafikLabIntegrationManager *integrationManager;
+    UIActivityIndicatorView *indicator;
+}
 
 @property (retain, nonatomic) IBOutlet UITextView *resultTextView;
 

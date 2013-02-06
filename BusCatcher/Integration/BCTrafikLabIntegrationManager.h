@@ -16,7 +16,12 @@
 - (void)busStopsFromLocation:(NSArray *)busStops;
 @end
 
-@interface BCTrafikLabIntegrationManager : NSObject <BCBusStopSearchDelegate,BCBusStopDeparturesSearchDelegate> 
+@interface BCTrafikLabIntegrationManager : NSObject <BCBusStopSearchDelegate,BCBusStopDeparturesSearchDelegate>
+{
+    @private
+    BCBusStopSearchClient *busStopSearchClient;
+    BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
+}
 
 @property (nonatomic,weak) id<BCTrafikLabIntegrationDelegate> delegate;
 

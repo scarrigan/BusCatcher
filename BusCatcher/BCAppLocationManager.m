@@ -12,8 +12,6 @@
 
 @synthesize delegate=_delegate;
 
-CLLocationManager *locationManager;
-
 - (id)init
 {
     if (self = [super init]) {

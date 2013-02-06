@@ -13,9 +13,6 @@
 
 @synthesize delegate=_delegate;
 
-BCBusStopSearchClient *busStopSearchClient;
-BCBusStopDeparturesSearchClient *busStopDeparturesSearchClient;
-
 - (id)init {
     if((self = [super init])) {
         busStopSearchClient = [[BCBusStopSearchClient alloc] init];

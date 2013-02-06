@@ -15,6 +15,10 @@
 @end
 
 @interface BCAppLocationManager : NSObject <CLLocationManagerDelegate>
+{
+    @private
+    CLLocationManager *locationManager;
+}
 
 @property (nonatomic,weak) id<BCAppLocationManagerDelegate> delegate;
 

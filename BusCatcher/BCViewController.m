@@ -12,10 +12,6 @@
 
 @synthesize resultTextView=_resultTextView;
 
-BCAppLocationManager *appLocationManager;
-BCTrafikLabIntegrationManager *integrationManager;
-UIActivityIndicatorView *indicator;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -10,5 +10,10 @@
 #import "BCBusStopSearchClient.h"
 
 @interface BCBusStopSearchClientIntegrationTest : SenTestCase <BCBusStopSearchDelegate>
+{
+    @private
+    BCBusStopSearchClient *client;
+    BOOL callbackInvoked;
+}
 
 @end
