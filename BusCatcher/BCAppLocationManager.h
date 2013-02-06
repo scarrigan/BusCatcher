@@ -16,7 +16,7 @@
 
 @interface BCAppLocationManager : NSObject <CLLocationManagerDelegate>
 
-@property (strong,nonatomic) id delegate;
+@property (nonatomic,weak) id<BCAppLocationManagerDelegate> delegate;
 
 - (void)queryLocation;
 

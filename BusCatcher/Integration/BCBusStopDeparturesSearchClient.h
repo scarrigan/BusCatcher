@@ -16,7 +16,7 @@
 
 @interface BCBusStopDeparturesSearchClient : NSObject
 
-@property (strong,nonatomic) id delegate;
+@property (nonatomic,weak) id<BCBusStopDeparturesSearchDelegate> delegate;
 
 - (void)searchForDeparturesBySLSiteId:(BCBusStop *)busStop andWithTimeWindow:(NSString *)timeWindow;
 

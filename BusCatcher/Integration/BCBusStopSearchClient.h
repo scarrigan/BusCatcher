@@ -17,7 +17,7 @@
 
 @interface BCBusStopSearchClient : NSObject
 
-@property (strong,nonatomic) id delegate;
+@property (nonatomic,weak) id<BCBusStopSearchDelegate> delegate;
 
 - (void)searchByCoordinate:(CLLocationCoordinate2D)coordinate2D andWithinRange:(NSString *)rangeInMeters;
 - (void)searchForSLBusStopByName:(BCBusStop *)busStop;

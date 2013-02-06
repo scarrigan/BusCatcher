@@ -18,7 +18,7 @@
 
 @interface BCTrafikLabIntegrationManager : NSObject <BCBusStopSearchDelegate,BCBusStopDeparturesSearchDelegate> 
 
-@property (strong,nonatomic) id delegate;
+@property (nonatomic,weak) id<BCTrafikLabIntegrationDelegate> delegate;
 
 - (void) getDeparturesFromBusStop:(BCBusStop *)busStop;
 - (void) getBusStopsFromLocation:(CLLocationCoordinate2D)coordinate2D andWithinRadius:(NSString *) radius;
