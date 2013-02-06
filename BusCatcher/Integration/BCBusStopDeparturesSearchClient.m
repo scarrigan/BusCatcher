@@ -25,6 +25,7 @@
     NSString *urlString = [baseUrl stringByAppendingString:_siteId];
     urlString = [urlString stringByAppendingString:_timeWindow];
     urlString = [urlString stringByAppendingString:key];
+    
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -49,6 +50,8 @@
         
         if ( [_delegate respondsToSelector:@selector(searchForDeparturesBySLSiteIdResult:)] ) {
             [_delegate searchForDeparturesBySLSiteIdResult:busStop];
+        } else {
+            NSLog(@"%@ Does not repond to selector searchForDeparturesBySLSiteIdResult",[_delegate class]);
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

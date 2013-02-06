@@ -11,14 +11,16 @@
 #import "BCBusStopSearchClient.h"
 #import "BCBusStopDeparturesSearchClient.h"
 
-@protocol BCTrafikLabIngegrationDelegate <NSObject>
-- (void)departuresFromLocation:(BCBusStop *)busStop;
+@protocol BCTrafikLabIntegrationDelegate <NSObject>
+- (void)departuresFromBusStop:(BCBusStop *)busStop;
+- (void)busStopsFromLocation:(NSArray *)busStops;
 @end
 
 @interface BCTrafikLabIntegrationManager : NSObject <BCBusStopSearchDelegate,BCBusStopDeparturesSearchDelegate> 
 
 @property (strong,nonatomic) id delegate;
 
-- (void) getDeparturesFromLocation:(CLLocationCoordinate2D)coordinate2D andWithinRadius:(NSString *) radius;
+- (void) getDeparturesFromBusStop:(BCBusStop *)busStop;
+- (void) getBusStopsFromLocation:(CLLocationCoordinate2D)coordinate2D andWithinRadius:(NSString *) radius;
 
 @end

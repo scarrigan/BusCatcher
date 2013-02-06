@@ -35,6 +35,8 @@ CLLocationManager *locationManager;
     [locationManager stopUpdatingLocation];
     if ( [_delegate respondsToSelector:@selector(queryLocationComplete:)] ) {
         [_delegate queryLocationComplete:newLocation.coordinate];
+    } else {
+        NSLog(@"%@ Does not repond to selector queryLocationComplete",[_delegate class]);
     }
 }
 

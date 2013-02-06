@@ -57,6 +57,8 @@
         
         if ( [_delegate respondsToSelector:@selector(searchByCoordinateResult:)] ) {
             [_delegate searchByCoordinateResult:busStops];
+        } else {
+            NSLog(@"%@ Does not repond to selector searchByCoordinateResult",[_delegate class]);
         }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -79,11 +81,12 @@
 {
     NSString *baseURL = @"https://api.trafiklab.se/sl/realtid/GetSite.json?stationSearch=";
     NSString *key = [[BCApiKeyManager sharedManager] valueForApiKey:@"SLStationSearch"];
-    NSString *urlString = [[NSString alloc] initWithString:baseURL];
     NSString *nameEncoded = [[busStop busStopName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSString *urlString = [[NSString alloc] initWithString:baseURL];
     urlString = [urlString stringByAppendingString:nameEncoded];
     urlString = [urlString stringByAppendingString:key];
-    //NSLog(@"%@",urlString);
+    
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -108,7 +111,9 @@
         
         if ( [_delegate respondsToSelector:@selector(searchSLBusStopByNameResult:)] ) {
             [_delegate searchSLBusStopByNameResult:busStops];
-        }   
+        } else {
+            NSLog(@"%@ Does not repond to selector searchSLBusStopByNameResult",[_delegate class]);
+        }
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
