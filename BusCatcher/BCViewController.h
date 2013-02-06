@@ -11,6 +11,8 @@
 #import "BCBusStopSearchClient.h"
 #import "BCBusStopDeparturesSearchClient.h"
 #import "BCTrafikLabIntegrationManager.h"
+#import "BCBusStop.h"
+#import "BCApiKeyManager.h"
 
 @interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCTrafikLabIntegrationDelegate>
 

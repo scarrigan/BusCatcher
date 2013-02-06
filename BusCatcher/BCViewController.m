@@ -7,12 +7,6 @@
 //
 
 #import "BCViewController.h"
-#import "BCBusStop.h"
-#import "BCApiKeyManager.h"
-
-@interface BCViewController ()
-
-@end
 
 @implementation BCViewController
 
@@ -20,9 +14,7 @@
 
 BCAppLocationManager *appLocationManager;
 BCTrafikLabIntegrationManager *integrationManager;
-
 UIActivityIndicatorView *indicator;
-
 
 - (void)viewDidLoad
 {

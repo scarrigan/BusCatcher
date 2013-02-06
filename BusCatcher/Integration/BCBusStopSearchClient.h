@@ -11,6 +11,7 @@
 #import "BCBusStop.h"
 
 @protocol BCBusStopSearchDelegate <NSObject>
+@optional
 - (void)searchByCoordinateResult:(NSArray *)busStops;
 - (void)searchSLBusStopByNameResult:(NSArray *)busStops;
 @end
