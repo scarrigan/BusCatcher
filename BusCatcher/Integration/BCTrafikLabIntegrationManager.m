@@ -42,10 +42,12 @@
 
 - (void)searchSLBusStopByNameResult:(NSArray *)busStops
 {
-    if ( [_delegate respondsToSelector:@selector(busStopsFromLocation:)] ) {
-        [_delegate busStopsFromLocation:busStops];
-    } else {
-        NSLog(@"%@ Does not repond to selector busStopsFromLocation",[_delegate class]);
+    if ([busStops count] == 1) { // ONLY Support exact matches between ResRobot and SL API
+        if ( [_delegate respondsToSelector:@selector(busStopsFromLocation:)] ) {
+            [_delegate busStopsFromLocation:busStops];
+        } else {
+            NSLog(@"%@ Does not repond to selector busStopsFromLocation",[_delegate class]);
+        }
     }
 }
 

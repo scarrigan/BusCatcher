@@ -41,7 +41,10 @@
 }
 
 - (void)addDepartureFromDictionary:(NSDictionary *)departure {
-    [departures addObject:[[BCDeparture alloc] initWithDictionary:departure]];
+    BCDeparture *dep = [[BCDeparture alloc] initWithDictionary:departure];
+    NSMutableArray *tmpDep = [[NSMutableArray alloc] initWithArray:departures];
+    [tmpDep addObject:dep];
+    departures = [[NSArray alloc] initWithArray:tmpDep];
 }
 
 - (NSString *)description

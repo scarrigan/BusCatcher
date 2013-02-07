@@ -25,6 +25,7 @@
     NSString *urlString = [baseUrl stringByAppendingString:_siteId];
     urlString = [urlString stringByAppendingString:_timeWindow];
     urlString = [urlString stringByAppendingString:key];
+    //NSLog(@"URL %@ ", urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -38,12 +39,14 @@
         
         if ([departures isKindOfClass:[NSArray class]]) { // FOR MORE THAN ONE RESULT
             for (NSDictionary *departure in departures){
-                if ([[departure valueForKey:@"TransportMode"] isEqualToString:@"BUS"]) {
+                NSString * transportMode = [departure valueForKey:@"TransportMode"];
+                if ([transportMode isEqualToString:@"BUS"] || [transportMode isEqualToString:@"BLUEBUS"]) {
                     [busStop addDepartureFromDictionary:departure];
                 }
             }
         } else if ([departures isKindOfClass:[NSDictionary class]]) {
-            if ([[departures valueForKey:@"TransportMode"] isEqualToString:@"BUS"]) {
+            NSString * transportMode = [departures valueForKey:@"TransportMode"];
+            if ([transportMode isEqualToString:@"BUS"] || [transportMode isEqualToString:@"BLUEBUS"]) {
                 [busStop addDepartureFromDictionary:departures];
             }
         }

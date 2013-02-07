@@ -1,14 +1,14 @@
 //
-//  BCBusStopSearchClientIntegrationTest.m
+//  UnusualLocationsIntegrationTest.m
 //  BusCatcher
 //
-//  Created by Steve Carrigan on 2/6/13.
+//  Created by Steve Carrigan on 2/7/13.
 //  Copyright (c) 2013 Steve Carrigan. All rights reserved.
 //
 
-#import "BCBusStopSearchClientIntegrationTest.h"
+#import "UnusualLocationsIntegrationTest.h"
 
-@implementation BCBusStopSearchClientIntegrationTest
+@implementation UnusualLocationsIntegrationTest
 
 - (void)setUp
 {
@@ -32,25 +32,25 @@
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:timeout]];
 }
 
-- (void)testGetBusStopsFromLocationMyHome
+- (void)testGetBusStopsFromKlarabergsviadukten
 {
-    [client searchByCoordinate:CLLocationCoordinate2DMake(59.176888, 18.161941) andWithinRange:@"500"];
-    [self waitForProcessing:3.0];
-    STAssertTrue(callbackInvoked,@"Delegate should send searchByCoordinateResult: within 3 seconds.");
+    [client searchByCoordinate:CLLocationCoordinate2DMake(59.33076,18.056452) andWithinRange:@"500"];
+    [self waitForProcessing:5.0];
+    STAssertTrue(callbackInvoked,@"Delegate should send searchByCoordinateResult: within 5 seconds.");
 }
 
 #pragma mark BCBusStopSearchClientDelegate
 - (void)searchByCoordinateResult:(NSArray *)busStops
 {
     STAssertNotNil(busStops, @"expected a non nil value");
-    STAssertTrue([busStops count] == 3, @"There are three bus stops within 500 meters from location My Home.");
+    //NSLog(@"Klarabergsviadukten stops %@", [busStops description]);
     callbackInvoked = YES;
 }
 
 - (void)testGetSLBusStopNameFromName
 {
     BCBusStop *busStop = [[BCBusStop alloc] init];
-    [busStop setBusStopName:@"Kulfångsgatan"];
+    [busStop setBusStopName:@"Stockholm Central Vasagatan \n\n"];
     [client searchForSLBusStopByName:busStop];
     [self waitForProcessing:5.0];
     STAssertTrue(callbackInvoked,@"Delegate should send searchSLBusStopByNameResult: within 5 seconds.");
@@ -60,7 +60,8 @@
 - (void)searchSLBusStopByNameResult:(NSArray *)busStops
 {
     STAssertNotNil(busStops, @"expected a non nil value");
-    STAssertTrue([busStops count] == 1, @"There is exact one match for the given bus stop name.");
+    //NSLog(@"SL Bus Stop matches value %@", [busStops description]);
+    STAssertTrue([busStops count] > 1, @"There is more than one match for the given bus stop name.");
     callbackInvoked = YES;
 }
 
