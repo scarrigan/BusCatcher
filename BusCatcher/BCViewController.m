@@ -28,9 +28,6 @@
     
     integrationManager = [[BCTrafikLabIntegrationManager alloc] init];
     [integrationManager setDelegate:self];
-    
-    //[self createContentPages];
-    //[self setupPageController];
 }
 
 - (void)setupPageController
@@ -78,6 +75,8 @@
 
 - (void)getNearByDepartures
 {
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
     [indicator startAnimating];
     
     // Query Location and Initiate Bus Stop lookup
