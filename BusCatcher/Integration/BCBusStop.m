@@ -13,6 +13,24 @@
 
 @synthesize busStopId,busStopName,xCoordinate,yCoordinate,departures;
 
+- (NSString *)shortBusStopName
+{
+    NSRange range = [busStopName rangeOfString:@"("];
+    if (range.location != NSNotFound) {
+        return [NSString stringWithString:[busStopName substringToIndex:range.location] ];
+    }
+    return busStopName;
+}
+
+- (NSArray *)departuresAsStringArray
+{
+    NSMutableArray *tmp = [[NSMutableArray alloc] init];
+    for (BCDeparture *departure in departures) {
+        [tmp addObject:[departures description]];
+    }
+    return [[NSArray alloc] initWithArray:tmp];
+}
+
 - (id)initWithResRobotDictionary:(NSDictionary *)busStop
 {
     if (self = [super init]) {

@@ -24,7 +24,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ %@ %@", lineNumber, destination, displayTime];
+    return [NSString stringWithFormat:@"%@ %@\t\t%@", lineNumber, destination, displayTime];
 }
 
 @end

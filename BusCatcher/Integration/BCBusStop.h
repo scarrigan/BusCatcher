@@ -20,5 +20,6 @@
 - (id)initWithSLDictionary:(NSDictionary *)busStop;
 - (void)enrichWithSLDictionary:(NSDictionary *)busStop;
 - (void)addDepartureFromDictionary:(NSDictionary *)departure;
+- (NSString *)shortBusStopName;
 
 @end

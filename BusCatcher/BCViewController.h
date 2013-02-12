@@ -13,8 +13,9 @@
 #import "BCTrafikLabIntegrationManager.h"
 #import "BCBusStop.h"
 #import "BCApiKeyManager.h"
+#import "BCPageViewController.h"
 
-@interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCTrafikLabIntegrationDelegate>
+@interface BCViewController : UIViewController <BCAppLocationManagerDelegate,BCTrafikLabIntegrationDelegate,UIPageViewControllerDataSource>
 {
     @private
     BCAppLocationManager *appLocationManager;
@@ -22,7 +23,9 @@
     UIActivityIndicatorView *indicator;
 }
 
-@property (retain, nonatomic) IBOutlet UITextView *resultTextView;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) UIPageViewController *pageController;
+@property (copy, nonatomic) NSArray *pageContent;
 
 - (void)getNearByDepartures;
 
